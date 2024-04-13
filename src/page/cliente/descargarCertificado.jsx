@@ -3,10 +3,7 @@ import Sidebar from "../../components/sidebarComponent"
 import DataTable from '../../components/dash/dataTable'
 import useSelectId from '../../Hooks/useSelectId';
 import Botonera from '../../components/dash/botonera'
-import useSelectRow from '../../Hooks/useSelectRow';
-import Swal from "sweetalert2";
 import Stack from '@mui/material/Stack';
-import Boton from "../../components/dash/boton";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import WhatsAppComponent from '../../components/whatsappComponent';
@@ -15,7 +12,7 @@ import { DescargaCertificado } from '../../components/veterinario/descargarCerti
 const columns = [
   { field: 'nombre_mascota', headerName: 'Mascota', width: 100 },
   { field: 'informacion_sanitaria_certificado', headerName: 'Informacion sanitaria', width: 270 },
-  { field: 'fecha_certificado', headerName: 'Fecha del certificado', width: 230, width: 150, valueGetter: (params) => new Date(params.row.fecha_certificado).toLocaleDateString('es-ES') },
+  { field: 'fecha_certificado', headerName: 'Fecha del certificado', width: 230, valueGetter: (params) => new Date(params.row.fecha_certificado).toLocaleDateString('es-ES') },
   { field: 'informacion_adicional_certificado', headerName: 'Informacion Adicional', width: 270 },
 
 ]

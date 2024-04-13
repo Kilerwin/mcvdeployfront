@@ -15,7 +15,6 @@ import isBetween from 'dayjs/plugin/isBetween';
 import '../../assets/css/sidebar.css';
 import Infocard from '../../components/client/infoComponent';
 import Swal from 'sweetalert2';
-import { Password } from '@mui/icons-material';
 import WhatsAppComponent from '../../components/whatsappComponent';
 
 dayjs.extend(localizedFormat);

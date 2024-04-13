@@ -1,7 +1,6 @@
 import { Modal } from '@mui/material'
 import { useState } from 'react'
 import Boton from '../dash/boton'
-import dayjs from 'dayjs';
 import DataTable from '../../components/dash/dataTable'
 import useSelectId from '../../Hooks/useSelectId';
 import axios from 'axios';

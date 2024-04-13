@@ -101,7 +101,7 @@ const ValidarPw = () => {
                   value="Actualizar"
                 /><br />
                 <div className='hover-link'>
-                  <Link to="/login" sx={{ marginBottom: 2, textDecoration: "none", color: '#888' }} className='link-2' ><i class="ri-user-received-2-fill"></i>Ya tienes una cuenta?</Link>
+                  <Link to="/login" sx={{ marginBottom: 2, textDecoration: "none", color: '#888' }} className='link-2' ><i className="ri-user-received-2-fill"></i>Ya tienes una cuenta?</Link>
                 </div>
               </div>
             </form>

@@ -4,7 +4,6 @@ import Input from '../admin/Input'
 import Selects from '../admin/Selects'
 import { useState } from 'react'
 import Boton from '../dash/boton'
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import InputDate from '../dash/inputDate'
 import dayjs from 'dayjs'
 import axios from 'axios';

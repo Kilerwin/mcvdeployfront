@@ -5,7 +5,6 @@ import useSelectId from '../../Hooks/useSelectId';
 import Botonera from '../../components/dash/botonera';
 import Swal from "sweetalert2";
 import Stack from '@mui/material/Stack';
-import Boton from "../../components/dash/boton";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import WhatsAppComponent from '../../components/whatsappComponent';
 import axios from 'axios';

@@ -5,11 +5,7 @@ import DataTable from '../../components/dash/dataTable'
 import useSelectId from '../../Hooks/useSelectId';
 import Botonera from '../../components/dash/botonera'
 import axios from 'axios';
-import AlertEliminar from '../../components/dash/alertEliminar';
-import dayjs from 'dayjs';
 import AlertPrincipal from '../../components/dash/alertPrincipal';
-import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
-import { DescargarHistoria } from './DescargarHistoria';
 
 
 
@@ -24,10 +20,9 @@ const columns = [
 export default function MascotaPerfil(props) {
     const { bgColor, icon, tooltip, id, name } = props
     const [open, setOpen] = useState(false)
-    const { selectId, saveSelectId } = useSelectId()
+    const { saveSelectId } = useSelectId()
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
-    const [actualizar, setActualizar] = useState(false)
     const [success, setSuccess] = useState('')
 
     const handleModal = async () => {

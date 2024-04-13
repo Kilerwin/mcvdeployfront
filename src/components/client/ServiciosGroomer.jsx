@@ -4,9 +4,7 @@ import Boton from '../dash/boton';
 import DataTable from '../../components/dash/dataTable';
 import useSelectId from '../../Hooks/useSelectId';
 import Botonera from '../../components/dash/botonera';
-import { DescargarHistoria } from './DescargarHistoria';
 import axios from 'axios';
-import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import AlertPrincipal from '../../components/dash/alertPrincipal';
 
 const columns = [
@@ -20,7 +18,7 @@ const columns = [
 export default function ServiciosGroomer(props) {
     const { bgColor, icon, tooltip, id, name } = props;
     const [open, setOpen] = useState(false);
-    const { selectId, saveSelectId } = useSelectId();
+    const { saveSelectId } = useSelectId();
     const [data, setData] = useState([]);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState('');

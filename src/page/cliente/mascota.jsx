@@ -5,7 +5,6 @@ import Logo from '../../assets/img/gatito.avif';
 import WhatsAppComponent from '../../components/whatsappComponent';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import useSelectId from '../../Hooks/useSelectId';
 import MascotaPerfil from '../../components/client/mascotaComponent';
 import ServiciosGroomer from '../../components/client/ServiciosGroomer';
 import { EyeIcon } from "@heroicons/react/24/outline";
@@ -15,8 +14,6 @@ import Swal from 'sweetalert2';
 
 export default function Mascota() {
     const [cliente, setCliente] = useState(JSON.parse(localStorage.getItem('client')));
-    const [datosFormulario, setDatosFormulario] = useState({});
-    const { selectId, saveSelectId } = useSelectId()
     const [mascotas, setMascotas] = useState([]);
 
     useEffect(() => {

@@ -1,16 +1,14 @@
-import { Alert, Grid, Modal } from '@mui/material'
+import { Grid, Modal } from '@mui/material'
 import useForm from '../../Hooks/useForm'
 import Input from '../admin/Input'
 import Selects from '../admin/Selects'
 import { useEffect, useState } from 'react'
 import Boton from '../dash/boton'
-import { TextField } from '@mui/material';
 import InputDate from '../dash/inputDate'
 import axios from 'axios';
 import Message from '../dash/succesfulMessage';
 import { getDataById } from '../../utils/getDataById';
 import { useHabilitar } from '../../Hooks/useHabilitar';
-import { dateFormater } from '../../utils/dateFormater';
 import dayjs from 'dayjs'
 
 const registro_historia_clinica_finalizado = [

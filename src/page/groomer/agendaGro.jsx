@@ -41,7 +41,6 @@ const columns = [
 
 export default function AgendaGroomer() {
   const { selectId, saveSelectId } = useSelectId()
-  const [usuario] = useState(JSON.parse(localStorage.getItem('user')));
 
   const [rows, setRows] = useState([])
   const [actualizar, setActualizar] = useState(false)

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TextField, FormControl, InputLabel, Select, MenuItem, Avatar, Stack, Modal } from '@mui/material';
+import { TextField, FormControl, InputLabel, Select, MenuItem, Avatar, Stack } from '@mui/material';
 import SideNav from '../../components/sidebarComponent';
 import RegistroCliente from '../../components/client/registro_component';
 import Swal from 'sweetalert2';
@@ -7,7 +7,6 @@ import axios from 'axios';
 
 const RegistroMascota = () => {
     const [avatar, setAvatar] = useState(null);
-    const [razas, setRazas] = useState([]);
     const [generoMascota, setGeneroMascota] = useState([]);
     const [tipooMascota, setTipoMascota] = useState([]);
     const [documento, setDocumento] = useState('');

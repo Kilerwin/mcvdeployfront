@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { TextField, Select, MenuItem, FormControl, InputLabel, Typography, Card, CardContent, Stack, IconButton, Tooltip } from '@mui/material';
+import { TextField, Select, MenuItem, FormControl, InputLabel, Stack, IconButton, Tooltip } from '@mui/material';
 import Sidebar from '../../components/sidebarComponent';
 import Swal from 'sweetalert2';
 import SearchIcon from '@mui/icons-material/Search';
 import ModalFactura from '../../components/auxiliar/modalFactura';
-import { Logo } from '../../assets/img/MVC.png'
-import Botonera from '../../components/dash/botonera';
 import { EyeIcon } from "@heroicons/react/24/outline";
 
 const FormAgregarFactura = () => {

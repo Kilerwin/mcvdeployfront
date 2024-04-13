@@ -5,11 +5,9 @@ import { useHabilitar } from '../../Hooks/useHabilitar';
 import DataTable from '../../components/dash/dataTable'
 import useSelectId from '../../Hooks/useSelectId';
 import Botonera from '../../components/dash/botonera'
-import { Maurisio } from '../../components/veterinario/agregarVacuanciom'
 import { PlusIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 import axios from 'axios';
 import AlertEliminar from '../../components/dash/alertEliminar';
-import dayjs from 'dayjs';
 import AlertPrincipal from '../../components/dash/alertPrincipal';
 import { FormAgregarHistoriaClinica } from './agregarHistoria'
 

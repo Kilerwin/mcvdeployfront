@@ -119,19 +119,3 @@ export default function AlertaVer(props) {
 
   );
 }
-
-const styles = {
-  tableHeader: {
-    padding: "12px 8px",
-    fontWeight: "bold",
-    textAlign: "left",
-    borderBottom: "1px solid #ccc",
-  },
-  tableRow: {
-    borderBottom: "1px solid #ccc",
-  },
-  tableData: {
-    padding: "12px 8px",
-    borderBottom: "1px solid #ccc",
-  },
-};
