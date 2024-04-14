@@ -122,7 +122,7 @@ const handleSubmit = async (event) => {
   setSuccess('')
   setDisableBoton(true)
   try {
-      let endpoint = 'http://mcvapi.azurewebsites.net/hospitalizaciones'
+      let endpoint = 'https://mcvapi.azurewebsites.net/hospitalizaciones'
       let httpMethod = 'post'
       let envio = {}
       const fechaHoy = `${dayjs().format('MM-DD-YYYY')} ${dayjs().format('HH:MM')}`

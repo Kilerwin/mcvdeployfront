@@ -29,7 +29,7 @@ export default function MascotaPerfil(props) {
         try {
             setSuccess('')
             setError('')
-            const result = await axios.get(`http://mcvapi.azurewebsites.net/info_mascotas/historial/${id}`)
+            const result = await axios.get(`https://mcvapi.azurewebsites.net/info_mascotas/historial/${id}`)
             setData(result.data[0])
         } catch (error) {
             setData([])

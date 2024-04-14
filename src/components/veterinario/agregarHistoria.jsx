@@ -74,7 +74,7 @@ export const FormAgregarHistoriaClinica = (props) => {
     useEffect(() => {
         const fectchData = async () => {
             try {
-                const result = await axios.get('http://mcvapi.azurewebsites.net/servicios/VET')
+                const result = await axios.get('https://mcvapi.azurewebsites.net/servicios/VET')
                 setServi(result.data)
             } catch (error) {
                 setError(`Error: ${error.response.data.message}`)
@@ -92,7 +92,7 @@ export const FormAgregarHistoriaClinica = (props) => {
         try {
             (values.id_historia_clinica = idHistoria)
             const fechaHoy = dayjs().format('MM-DD-YYYY')
-            let endpoint = 'http://mcvapi.azurewebsites.net/historia_clinica'
+            let endpoint = 'https://mcvapi.azurewebsites.net/historia_clinica'
             let httpMethod = 'post'
             let envio = {}
             if (id !== null && id) {

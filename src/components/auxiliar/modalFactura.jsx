@@ -36,7 +36,7 @@ export default function ModalFactura(props) {
         try {
             setSuccess('')
             setError('')
-            const result = await axios.get(`http://mcvapi.azurewebsites.net/factura`)
+            const result = await axios.get(`https://mcvapi.azurewebsites.net/factura`)
             setData(result.data)
         } catch (error) {
             setData([])

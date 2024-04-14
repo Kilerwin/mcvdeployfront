@@ -20,7 +20,7 @@ export default function HomeAuxiliar() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data } = await axios.get('http://mcvapi.azurewebsites.net/inicio_auxil');
+                const { data } = await axios.get('https://mcvapi.azurewebsites.net/inicio_auxil');
                 setData(data);
                 setLastUpdateTime(new Date());
             } catch (error) {

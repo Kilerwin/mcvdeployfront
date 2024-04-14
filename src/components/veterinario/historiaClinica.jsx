@@ -32,7 +32,7 @@ export const HistoriaClinica = (props) => {
     useEffect(() => {
         const fectchData = async () => {
             try {
-                const result = await axios.get(`http://mcvapi.azurewebsites.net/info_mascotas/historial/${id}`)
+                const result = await axios.get(`https://mcvapi.azurewebsites.net/info_mascotas/historial/${id}`)
                 setData(result.data[0])
             } catch (error) {
                 setData([])
@@ -48,7 +48,7 @@ export const HistoriaClinica = (props) => {
         try {
             setSuccess('')
             setError('')
-            const result = await axios.get(`http://mcvapi.azurewebsites.net/info_mascotas/historial/${id}`)
+            const result = await axios.get(`https://mcvapi.azurewebsites.net/info_mascotas/historial/${id}`)
             setData(result.data[0])
         } catch (error) {
             setData([])

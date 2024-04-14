@@ -37,7 +37,7 @@ function Examenes() {
   useEffect(() => {
     const fectchData = async () => {
       try {
-        const result = await axios.get('http://mcvapi.azurewebsites.net/examenesVeterinario')
+        const result = await axios.get('https://mcvapi.azurewebsites.net/examenesVeterinario')
         setRows(result.data)
       } catch (error) {
         setError('Error' + error.message)

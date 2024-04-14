@@ -22,7 +22,7 @@ export default function Mascota() {
                 const clientData = JSON.parse(localStorage.getItem('client'));
                 if (clientData) {
                     setCliente(clientData);
-                    const response = await axios.get(`http://mcvapi.azurewebsites.net/info_mascotas/${clientData.id}`);
+                    const response = await axios.get(`https://mcvapi.azurewebsites.net/info_mascotas/${clientData.id}`);
                     setMascotas(response.data);
                     if (response.data.length === 0) {
                         Swal.fire({

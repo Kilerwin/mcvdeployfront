@@ -73,7 +73,7 @@ export const FromGestionarMascota = (props) => {
                 ...values,
                 fecha_nacimiento_mascota: formattedFechaNacimiento
             };
-            await axios.patch(`http://mcvapi.azurewebsites.net/gestionar_mascotas/actualizar/${id}`, updatedValues);
+            await axios.patch(`https://mcvapi.azurewebsites.net/gestionar_mascotas/actualizar/${id}`, updatedValues);
             Swal.fire({
                 title: "Actualizado...",
                 text: "Mascota actualizada con exito",

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 async function getGenreTypes() {
   try {
-    const res = await axios.get('http://mcvapi.azurewebsites.net/genreTypes')
+    const res = await axios.get('https://mcvapi.azurewebsites.net/genreTypes')
     return  res.data
   } catch (error) {
     return `Error: ${error.response.data.message}`

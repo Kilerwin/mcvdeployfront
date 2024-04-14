@@ -37,7 +37,7 @@ export default function Desparacitacion() {
     useEffect(() => {
         const fectchData = async () => {
             try {
-                const result = await axios.get('http://mcvapi.azurewebsites.net/desparasitacion')
+                const result = await axios.get('https://mcvapi.azurewebsites.net/desparasitacion')
                 setRows(result.data)
             } catch (error) {
                 setRows([])

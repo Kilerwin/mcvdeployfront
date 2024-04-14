@@ -49,7 +49,7 @@ function Perfil() {
 
   const cargarDatos = async () => {
     try {
-      const response = await axios.get('http://mcvapi.azurewebsites.net/registro/documento');
+      const response = await axios.get('https://mcvapi.azurewebsites.net/registro/documento');
       setDocumentos(response.data);
 
       const clientDataFromLocalStorage = localStorage.getItem('client');
@@ -85,7 +85,7 @@ function Perfil() {
 
     try {
       if (cliente) {
-        await axios.put(`http://mcvapi.azurewebsites.net/registro/actualizar_cliente/${cliente.id_cliente}`, {
+        await axios.put(`https://mcvapi.azurewebsites.net/registro/actualizar_cliente/${cliente.id_cliente}`, {
           correo_usuario: usuario.correo_usuario,
           contraseña: contraseña,
           ...datosActualizados
@@ -97,7 +97,7 @@ function Perfil() {
         });
         setCliente({ ...cliente, ...datosFormulario });
       } else {
-        const response = await axios.post('http://mcvapi.azurewebsites.net/registro/registro_cliente', datosFormulario);
+        const response = await axios.post('https://mcvapi.azurewebsites.net/registro/registro_cliente', datosFormulario);
         Swal.fire({
           title: "¡Buen trabajo!",
           text: "Se ha registrado como cliente.",

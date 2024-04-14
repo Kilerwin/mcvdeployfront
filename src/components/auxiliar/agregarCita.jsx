@@ -129,7 +129,7 @@ export const Maurisio = (props) => {
         setSuccess('')
         setDisableBoton(true)
         try {
-            let endpoint = 'http://mcvapi.azurewebsites.net/agendar'
+            let endpoint = 'https://mcvapi.azurewebsites.net/agendar'
             let httpMethod = 'post'
             let envio = {};
             if (id !== null && id) {

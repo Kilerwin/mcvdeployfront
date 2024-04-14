@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 const result = async () => {
   try {
-    const res = await axios.get("http://mcvapi.azurewebsites.net/despaTypes");
+    const res = await axios.get("https://mcvapi.azurewebsites.net/despaTypes");
     return res.data;
   } catch (error) {
     return `Error: ${error.response.data.message}`;

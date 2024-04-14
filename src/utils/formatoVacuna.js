@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 export const handleCrearPdf = async  (id) => { // Insertar aqui id por favor No olvidar que es id de mascota 
 
     try {
-    const result = await axios.get(`http://mcvapi.azurewebsites.net/carnet/datos-pdf/${id}` ) 
+    const result = await axios.get(`https://mcvapi.azurewebsites.net/carnet/datos-pdf/${id}` ) 
     const data = result.data
 
     const ventanaImpresion = window.open('', '_blank');

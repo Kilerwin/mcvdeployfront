@@ -44,7 +44,7 @@ const handleClick = async () => {
         const datos = {
           anotacion:mensaje
         }
-          const response = await axios.patch(`http://mcvapi.azurewebsites.net/${endPoint}/${idSeleccionado}`,datos)
+          const response = await axios.patch(`https://mcvapi.azurewebsites.net/${endPoint}/${idSeleccionado}`,datos)
           Swal.fire(response.data.message, '', 'success');
           actualizar(!dato)
       } catch (error) {

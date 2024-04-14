@@ -66,7 +66,7 @@ export const FormAgregar = (props) => {
     setError('')
     setSuccess('')
     try {
-        let endpoint = 'http://mcvapi.azurewebsites.net/admin'
+        let endpoint = 'https://mcvapi.azurewebsites.net/admin'
         let httpMethod = 'post'
         let envio = {};
         if (id !== null && id) {

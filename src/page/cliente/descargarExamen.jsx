@@ -27,7 +27,7 @@ export default function DescargarExamen() {
   useEffect(() => {
     const fetchData1 = async () => {
       try {
-        const response = await axios.get(`http://mcvapi.azurewebsites.net/registro/descarga_examen/${cliente?.id}`);
+        const response = await axios.get(`https://mcvapi.azurewebsites.net/registro/descarga_examen/${cliente?.id}`);
         setRows(response.data[0]);
       } catch (error) {
         console.error("Error fetching data:", error);

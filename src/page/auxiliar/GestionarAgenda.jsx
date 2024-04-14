@@ -44,7 +44,7 @@ function GestionarAgenda() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get('http://mcvapi.azurewebsites.net/agendar/especialista/VET');
+        const result = await axios.get('https://mcvapi.azurewebsites.net/agendar/especialista/VET');
         setDataVeterinario(result.data);
       } catch (error) {
         setDataVeterinario([])
@@ -52,7 +52,7 @@ function GestionarAgenda() {
       }
       
       try {
-        const result2 = await axios.get('http://mcvapi.azurewebsites.net/agendar/especialista/GRO');
+        const result2 = await axios.get('https://mcvapi.azurewebsites.net/agendar/especialista/GRO');
         SetDataGroomer(result2.data);
       } catch (error) {
         SetDataGroomer([])

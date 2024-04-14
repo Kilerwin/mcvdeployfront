@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 
 const result = async () => {
     try {
-      const res = await axios.get('http://mcvapi.azurewebsites.net/userTypes')
+      const res = await axios.get('https://mcvapi.azurewebsites.net/userTypes')
       return res.data
     } catch (error) {
        return  `Error: ${error.response.data.message}`

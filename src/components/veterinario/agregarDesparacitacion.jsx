@@ -105,7 +105,7 @@ export const FromAgregarDesparacitacion = (props) => {
         setSuccess('');
         setDisableBoton(true)
         try {
-            let endpoint = 'http://mcvapi.azurewebsites.net/desparasitacion';
+            let endpoint = 'https://mcvapi.azurewebsites.net/desparasitacion';
             let httpMethod = 'post';
             let envio = {};
             if (id !== null && id) {

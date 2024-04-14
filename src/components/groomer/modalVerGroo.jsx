@@ -37,7 +37,7 @@ export default function AlertaVer(props) {
 
   const handleMensajeClick = async () => {
     try {
-      const result = await axios.get(`http://mcvapi.azurewebsites.net/groomer/${idSeleccionado}`);
+      const result = await axios.get(`https://mcvapi.azurewebsites.net/groomer/${idSeleccionado}`);
 
       setDatosMostrados(result.data);
       setModalIsOpen(true);

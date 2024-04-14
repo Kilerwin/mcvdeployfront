@@ -23,7 +23,7 @@ export default function Ejemplo({ id }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         setMostrarDogRunner(true);
-        axios.post('http://mcvapi.azurewebsites.net/envio-email/contactanos', formulario)
+        axios.post('https://mcvapi.azurewebsites.net/envio-email/contactanos', formulario)
             .then((response) => {
                 console.log('Correo enviado con éxito', response.data);
                 setTimeout(() => {

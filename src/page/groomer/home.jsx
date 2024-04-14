@@ -19,7 +19,7 @@ export default function Home() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data } = await axios.get('http://mcvapi.azurewebsites.net/inicio-gro');
+                const { data } = await axios.get('https://mcvapi.azurewebsites.net/inicio-gro');
                 setData(data);
                 setLastUpdateTime(new Date());
             } catch (error) {

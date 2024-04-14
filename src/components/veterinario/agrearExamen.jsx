@@ -101,7 +101,7 @@ export const AgrearExamen = (props) => {
     try {
       setError('')
       if(selectedFile){
-        const dataMascota = await axios.get(`http://mcvapi.azurewebsites.net/infoClienteMascota/${values.idMascota}`)
+        const dataMascota = await axios.get(`https://mcvapi.azurewebsites.net/infoClienteMascota/${values.idMascota}`)
         handleExamenesPdf(selectedFile, tipo_examen, values,dataMascota.data);
       }else{
         setError('Carge una imagen para generar el pdf')
@@ -180,7 +180,7 @@ const handleSubmit = async (event) => {
   setSuccess('')
   setDisableBoton(true)
   try {
-      let endpoint = 'http://mcvapi.azurewebsites.net/examenesVeterinario/'
+      let endpoint = 'https://mcvapi.azurewebsites.net/examenesVeterinario/'
       let httpMethod = 'post'
       let envio = {};
       if (id !== null && id) {
@@ -191,7 +191,7 @@ const handleSubmit = async (event) => {
             const formData = new FormData();
             formData.append('pdf', selectedPdf);
         
-            const link = await axios.post('http://mcvapi.azurewebsites.net/files/examenes', formData, {
+            const link = await axios.post('https://mcvapi.azurewebsites.net/files/examenes', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

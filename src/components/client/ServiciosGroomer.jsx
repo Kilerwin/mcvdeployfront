@@ -27,7 +27,7 @@ export default function ServiciosGroomer(props) {
         try {
             setSuccess('');
             setError(null);
-            const result = await axios.get(`http://mcvapi.azurewebsites.net/info_mascotas/serviciosGroo/${id}`);
+            const result = await axios.get(`https://mcvapi.azurewebsites.net/info_mascotas/serviciosGroo/${id}`);
             setData(result.data);
         } catch (error) {
             setError(error);

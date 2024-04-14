@@ -36,7 +36,7 @@ export default function AddEmploye() {
   useEffect(() => {
     const fectchData = async () => {
       try {
-        const result = await axios.get('http://mcvapi.azurewebsites.net/admin')
+        const result = await axios.get('https://mcvapi.azurewebsites.net/admin')
         setData(result.data)
       } catch (error) {
         error.response.data.message ? setError(error.response.data.message) : setError('Error al conectar con el servidor')

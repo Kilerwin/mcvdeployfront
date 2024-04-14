@@ -92,7 +92,7 @@ export const FormServisGroomer = (props) => {
     useEffect(() => {
         const fectchData = async () => {
             try {
-                const result = await axios.get('http://mcvapi.azurewebsites.net/servicios/GRO')
+                const result = await axios.get('https://mcvapi.azurewebsites.net/servicios/GRO')
                 setServi(result.data)
             } catch (error) {
                 setError(`Error: ${error.response.data.message}`)
@@ -140,7 +140,7 @@ export const FormServisGroomer = (props) => {
         setDisableBoton(true)
         try {
             const fechaHoy = dayjs().format('MM-DD-YYYY')
-            let endpoint = 'http://mcvapi.azurewebsites.net/groomer'
+            let endpoint = 'https://mcvapi.azurewebsites.net/groomer'
             let httpMethod = 'post'
             let envio = {};
             if (id !== null && id) {

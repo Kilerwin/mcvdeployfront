@@ -44,7 +44,7 @@ export const VerVacunasMascota = (props) => {
   useEffect(() => {
     const fectchData = async () => {
       try {
-        const result = await axios.get(`http://mcvapi.azurewebsites.net/carnet/ver/${id}`)
+        const result = await axios.get(`https://mcvapi.azurewebsites.net/carnet/ver/${id}`)
         setData(result.data)
       } catch (error) {
         setData([])
@@ -59,7 +59,7 @@ export const VerVacunasMascota = (props) => {
     try {
       setSuccess('')
       setError('')
-      const result = await axios.get(`http://mcvapi.azurewebsites.net/carnet/ver/${id}`)
+      const result = await axios.get(`https://mcvapi.azurewebsites.net/carnet/ver/${id}`)
       setData(result.data)
     } catch (error) {
       setData([])

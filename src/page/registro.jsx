@@ -45,7 +45,7 @@ const Registro = () => {
         userRol: 2
       };
       console.log(userData)
-      const response = await axios.post('http://mcvapi.azurewebsites.net/registro', userData);
+      const response = await axios.post('https://mcvapi.azurewebsites.net/registro', userData);
       if (response.data.error) {
         setErrorMessage(response.data.error);
         setSuccessMessage('');
@@ -62,7 +62,7 @@ const Registro = () => {
   useEffect(() => {
     const fetchGeneros = async () => {
       try {
-        const response = await axios.get('http://mcvapi.azurewebsites.net/registro/genero');
+        const response = await axios.get('https://mcvapi.azurewebsites.net/registro/genero');
         setGeneros(response.data);
       } catch (error) {
         console.error('Error al obtener los géneros:', error);

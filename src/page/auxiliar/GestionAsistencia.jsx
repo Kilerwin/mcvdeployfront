@@ -35,7 +35,7 @@ export default function GestionarAsistencia() {
     useEffect(()=>{
       const fechtData = async () =>{
         try {
-          const response = await axios.get(`http://mcvapi.azurewebsites.net/asistencia`)
+          const response = await axios.get(`https://mcvapi.azurewebsites.net/asistencia`)
           setRows(response.data)
       }catch(error){
         error.response.data.message ? setError(error.response.data.message) : setError('Error al conectar con el servidor')

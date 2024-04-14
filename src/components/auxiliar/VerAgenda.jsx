@@ -25,7 +25,7 @@ export const VerCitasDia = (props) => {
     }else{
       try {
         saveError('')
-        const result = await axios.get(`http://mcvapi.azurewebsites.net/agendar/empleados/${dateFormater({time: fechaCita, format: 'YYYY-MM-DD'})}/${idEmpleado}`);
+        const result = await axios.get(`https://mcvapi.azurewebsites.net/agendar/empleados/${dateFormater({time: fechaCita, format: 'YYYY-MM-DD'})}/${idEmpleado}`);
         setDataMostrar(result.data)
         setOpen(true)
       } catch (error) {

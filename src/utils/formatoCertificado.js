@@ -254,7 +254,7 @@ export const handleCertificadoPdf = async  (data) => {
 
 export const handleCertificadoGeneralPdf = async (id) => {
     try {
-        const response = await axios.get(`http://mcvapi.azurewebsites.net/certificados/oneById/${id}`)
+        const response = await axios.get(`https://mcvapi.azurewebsites.net/certificados/oneById/${id}`)
         handleCertificadoPdf(response.data)
     } catch (error) {
         console.log(error)

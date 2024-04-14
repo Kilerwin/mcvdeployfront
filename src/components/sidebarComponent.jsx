@@ -45,7 +45,7 @@ const Sidebar = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const response = await axios.post('http://mcvapi.azurewebsites.net/registro/desactivar', datosFormulario);
+                    const response = await axios.post('https://mcvapi.azurewebsites.net/registro/desactivar', datosFormulario);
                     if (response.status === 200) {
                         Swal.fire('¡Desactivada!', 'Tu cuenta ha sido desactivada.', 'success');
                         localStorage.removeItem('user');

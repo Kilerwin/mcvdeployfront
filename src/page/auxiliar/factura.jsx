@@ -159,7 +159,7 @@ const FormAgregarFactura = () => {
 
 
     useEffect(() => {
-        axios.get('http://mcvapi.azurewebsites.net/factura/servicios')
+        axios.get('https://mcvapi.azurewebsites.net/factura/servicios')
             .then((response) => {
                 setServicios(response.data);
             })
@@ -171,7 +171,7 @@ const FormAgregarFactura = () => {
     const handleBuscarCliente = (e) => {
         e.preventDefault();
 
-        axios.get(`http://mcvapi.azurewebsites.net/registro-mascota/get_clientes/${documento}`)
+        axios.get(`https://mcvapi.azurewebsites.net/registro-mascota/get_clientes/${documento}`)
             .then((response) => {
                 const clienteData = response.data[0];
                 if (clienteData) {
@@ -236,7 +236,7 @@ const FormAgregarFactura = () => {
             precioFinal: precioFinal
         };
         console.log(dataToSend);
-        axios.post('http://mcvapi.azurewebsites.net/factura/registrar_factura', dataToSend)
+        axios.post('https://mcvapi.azurewebsites.net/factura/registrar_factura', dataToSend)
             .then((response) => {
                 console.log('Factura guardada:', response.data);
                 Swal.fire({

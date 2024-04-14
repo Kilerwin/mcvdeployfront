@@ -30,7 +30,7 @@ export default function DescargarCertificado() {
   const fetchData = async () => {
     try {
       if (cliente && cliente.id) {
-        const responseCertificado = await axios.get(`http://mcvapi.azurewebsites.net/registro/descarga_certificado/${cliente?.id}`);
+        const responseCertificado = await axios.get(`https://mcvapi.azurewebsites.net/registro/descarga_certificado/${cliente?.id}`);
         setDatos(responseCertificado.data[0]);
       } else {
         setDatos([]);

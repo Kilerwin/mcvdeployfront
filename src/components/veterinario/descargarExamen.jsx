@@ -21,7 +21,7 @@ export function DescargaExamen(props) {
     }, [selectId])
     const handleModal = async () => {
         try {
-            const response = await axios.get(`http://mcvapi.azurewebsites.net/examenesVeterinario/${selectId}`)
+            const response = await axios.get(`https://mcvapi.azurewebsites.net/examenesVeterinario/${selectId}`)
             if (response.data.link_archivo_examen) {
                 window.open(response.data.link_archivo_examen, '_blank');
             } else {

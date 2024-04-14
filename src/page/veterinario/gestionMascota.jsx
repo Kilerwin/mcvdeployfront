@@ -33,7 +33,7 @@ export default function GestionMascota() {
         const fectchData = async () => {
             setError('')
             try {
-                const result = await axios.get('http://mcvapi.azurewebsites.net/info_mascotas')
+                const result = await axios.get('https://mcvapi.azurewebsites.net/info_mascotas')
                 setData(result.data)
             } catch (error) {
                 setData([])

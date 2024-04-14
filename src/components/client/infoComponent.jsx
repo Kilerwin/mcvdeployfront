@@ -28,7 +28,7 @@ const Infocard = () => {
         if (client && client.id) {
             const fetchData = async () => {
                 try {
-                    const response = await axios.get(`http://mcvapi.azurewebsites.net/home_perfil/${client.id}`);
+                    const response = await axios.get(`https://mcvapi.azurewebsites.net/home_perfil/${client.id}`);
                     if (response.data) {
                         setData(response.data);
                         setLastUpdateTime(new Date());

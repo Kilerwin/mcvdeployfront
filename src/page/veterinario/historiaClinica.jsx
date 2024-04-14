@@ -48,7 +48,7 @@ const RegistroMascota = () => {
             ...data,
             id_cliente_mascota: idCliente
         };
-        axios.post('http://mcvapi.azurewebsites.net/registro-mascota/generar_1', newData)
+        axios.post('https://mcvapi.azurewebsites.net/registro-mascota/generar_1', newData)
             .then((response) => {
                 Swal.fire({
                     title: "Buen trabajo!",
@@ -73,7 +73,7 @@ const RegistroMascota = () => {
     const buscarCliente = (e) => {
         e.preventDefault();
 
-        axios.get(`http://mcvapi.azurewebsites.net/registro-mascota/get_clientes/${documento}`)
+        axios.get(`https://mcvapi.azurewebsites.net/registro-mascota/get_clientes/${documento}`)
             .then((response) => {
                 const clienteData = response.data[0];
                 if (clienteData) {
@@ -115,7 +115,7 @@ const RegistroMascota = () => {
     };
 
     useEffect(() => {
-        axios.get('http://mcvapi.azurewebsites.net/registro-mascota/raza')
+        axios.get('https://mcvapi.azurewebsites.net/registro-mascota/raza')
             .then((response) => {
                 setTipoMascota(response.data);
             })
@@ -123,7 +123,7 @@ const RegistroMascota = () => {
                 console.error('Error:', error);
             });
 
-        axios.get('http://mcvapi.azurewebsites.net/registro-mascota/genero_mascota')
+        axios.get('https://mcvapi.azurewebsites.net/registro-mascota/genero_mascota')
             .then((response) => {
                 setGeneroMascota(response.data);
             })

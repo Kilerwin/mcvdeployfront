@@ -48,7 +48,7 @@ export default function AgendaGroomer() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://mcvapi.azurewebsites.net/agenda_groomer/mostrar/5`)
+        const response = await axios.get(`https://mcvapi.azurewebsites.net/agenda_groomer/mostrar/5`)
         setRows(response.data[0])
       } catch (error) {
         console.log(error)

@@ -32,7 +32,7 @@ const ValidarPw = () => {
     }
 
     try {
-      const response = await axios.patch(`http://mcvapi.azurewebsites.net/registro/actualizarPassword/${correo_verificacion}`, {
+      const response = await axios.patch(`https://mcvapi.azurewebsites.net/registro/actualizarPassword/${correo_verificacion}`, {
         value
       });
       Swal.fire({

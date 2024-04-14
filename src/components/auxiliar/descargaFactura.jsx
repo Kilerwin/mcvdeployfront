@@ -134,7 +134,7 @@ export function DescargaFactura(props) {
 
     const handleModal = async () => {
         try {
-            const result = await axios.get(`http://mcvapi.azurewebsites.net/factura/${selectId}`)
+            const result = await axios.get(`https://mcvapi.azurewebsites.net/factura/${selectId}`)
             const data = result.data
             handleImprimirFactura(data)
         } catch (error) {

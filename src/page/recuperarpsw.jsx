@@ -16,7 +16,7 @@ const RecuperarPw = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://mcvapi.azurewebsites.net/registro/recuperar_password', { email });
+      const response = await axios.post('https://mcvapi.azurewebsites.net/registro/recuperar_password', { email });
       console.log('Correo electrónico enviado con éxito:', response.data);
       Swal.fire({
         icon: 'success',
