@@ -6,21 +6,32 @@ import useSelectId from '../../Hooks/useSelectId';
 import Botonera from '../../components/dash/botonera'
 import axios from 'axios';
 import AlertPrincipal from '../../components/dash/alertPrincipal';
-
-
+import { VerHistorialServicio } from '../../components/veterinario/verHistorialServicio';
+import { EyeIcon } from "@heroicons/react/24/outline";
+import dayjs from 'dayjs';
 
 const columns = [
 
-    { field: 'fecha_creacion', headerName: 'Fecha de historial', width: 150, valueGetter: (params) => new Date(params.row.fecha_creacion).toLocaleDateString('es-ES') },
+    {
+        field: 'fecha_registro_historia_clinica', headerName: 'Fecha de historial', width: 150, valueGetter: (params) =>
+            `${dayjs(params.row.fecha_registro_historia_clinica).format('MM-DD-YYYY')}`
+    },
     { field: 'descripcion_servicio', headerName: 'Servicios prestados', width: 250 },
     { field: 'registro_historia_clinica_finalizado', headerName: 'Servicio finalizado', width: 150, valueGetter: (params) => params.row.registro_historia_clinica_finalizado === 1 ? 'Servicio Finalizado' : 'Servicio en proceso' },
 
 ]
 
+const formatContent = (content) => {
+    if (!content) return [];
+    const regex = /\n/g;
+    const fragments = content.split(regex).filter(Boolean);
+    return fragments;
+};
+
 export default function MascotaPerfil(props) {
     const { bgColor, icon, tooltip, id, name } = props
     const [open, setOpen] = useState(false)
-    const { saveSelectId } = useSelectId()
+    const { selectId, saveSelectId } = useSelectId()
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
     const [success, setSuccess] = useState('')
@@ -29,8 +40,8 @@ export default function MascotaPerfil(props) {
         try {
             setSuccess('')
             setError('')
-            const result = await axios.get(`https://mcvapi.azurewebsites.net/info_mascotas/historial/${id}`)
-            setData(result.data[0])
+            const result = await axios.get(`https://mcv-backend-deploy.vercel.app/info_mascotas/historial/${id}`)
+            setData(result.data)
         } catch (error) {
             setData([])
             setError(error.response.data)
@@ -39,7 +50,7 @@ export default function MascotaPerfil(props) {
 
     }
 
-    console.log(name)
+    console.log(data)
 
     const handleClose = () => {
         saveSelectId('')
@@ -62,7 +73,13 @@ export default function MascotaPerfil(props) {
                 <div className='min-h-20 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-solid border-black rounded-lg shadow p-4 bg-white'>
                     <Botonera
                         title={`Historial de la mascota ${name}`}
-
+                        ver={<VerHistorialServicio
+                            id={selectId}
+                            tooltip='Ver historial de observaciones'
+                            icon={<EyeIcon className="w-6 h-6" />}
+                            bgColor='success'
+                            saveError={setError}
+                        />}
                     />
                     <DataTable rows={data} columns={columns} selectId={saveSelectId} />
                     <AlertPrincipal severity='error' message={error} />

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 
 const result = async () =>{
   try {
-    const res = await axios.get('https://mcvapi.azurewebsites.net/examTypes/')
+    const res = await axios.get('https://mcv-backend-deploy.vercel.app/examTypes/')
     return res.data
   } catch (error) {
     return `Error: ${error.response.data.message}`

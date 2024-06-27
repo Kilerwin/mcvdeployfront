@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import InputLabel from '@mui/material/InputLabel';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Logo from "../assets/img/MVC.png";
@@ -31,8 +32,21 @@ const Registro = () => {
     e.preventDefault();
 
 
-    if (!formData.email || !formData.password || !formData.genero) {
-      setErrorMessage('Por favor completa todos los campos.');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setErrorMessage('Por favor ingrese un correo electrónico válido.');
+      return;
+    }
+
+
+    if (formData.password.length < 6) {
+      setErrorMessage('La contraseña debe tener al menos 6 caracteres.');
+      return;
+    }
+
+
+    if (!formData.genero) {
+      setErrorMessage('Por favor seleccione un género.');
       return;
     }
 
@@ -45,7 +59,7 @@ const Registro = () => {
         userRol: 2
       };
       console.log(userData)
-      const response = await axios.post('https://mcvapi.azurewebsites.net/registro', userData);
+      const response = await axios.post('https://mcv-backend-deploy.vercel.app/registro', userData);
       if (response.data.error) {
         setErrorMessage(response.data.error);
         setSuccessMessage('');
@@ -59,10 +73,11 @@ const Registro = () => {
     }
   };
 
+
   useEffect(() => {
     const fetchGeneros = async () => {
       try {
-        const response = await axios.get('https://mcvapi.azurewebsites.net/registro/genero');
+        const response = await axios.get('https://mcv-backend-deploy.vercel.app/registro/genero');
         setGeneros(response.data);
       } catch (error) {
         console.error('Error al obtener los géneros:', error);
@@ -108,9 +123,10 @@ const Registro = () => {
                   />
                 </FormControl>
                 <FormControl fullWidth={true} sx={{ marginBottom: 3 }}>
+                  <InputLabel id="tipo-genero-label">Genero</InputLabel>
                   <Select
+                    labelId="tipo-genero-label"
                     label="Genero"
-                    variant="outlined"
                     fullWidth
                     value={formData.genero}
                     onChange={handleChange}

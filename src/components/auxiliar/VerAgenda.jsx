@@ -1,6 +1,7 @@
 import { Modal } from '@mui/material'
 import { useState } from 'react'
 import Boton from '../dash/boton'
+import dayjs from 'dayjs';
 import DataTable from '../../components/dash/dataTable'
 import useSelectId from '../../Hooks/useSelectId';
 import axios from 'axios';
@@ -25,7 +26,7 @@ export const VerCitasDia = (props) => {
     }else{
       try {
         saveError('')
-        const result = await axios.get(`https://mcvapi.azurewebsites.net/agendar/empleados/${dateFormater({time: fechaCita, format: 'YYYY-MM-DD'})}/${idEmpleado}`);
+        const result = await axios.get(`https://mcv-backend-deploy.vercel.app/agendar/empleados/${dateFormater({time: fechaCita, format: 'YYYY-MM-DD'})}/${idEmpleado}`);
         setDataMostrar(result.data)
         setOpen(true)
       } catch (error) {

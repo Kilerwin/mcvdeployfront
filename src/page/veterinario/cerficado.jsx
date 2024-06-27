@@ -32,7 +32,7 @@ export default function Certificado () {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get('https://mcvapi.azurewebsites.net/certificados/');
+        const result = await axios.get('https://mcv-backend-deploy.vercel.app/certificados/');
         setDataMostrar(result.data)
       } catch (error) {
         setDataMostrar([])

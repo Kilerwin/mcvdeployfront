@@ -1,17 +1,15 @@
-
+import Swal from 'sweetalert2';
 import axios from 'axios';
 import dayjs from 'dayjs';
-
 // Este es el export de generar pedf de vacuna resive id de mascota para generar pddf
 
-export const handleCrearPdf = async  (id) => { // Insertar aqui id por favor No olvidar que es id de mascota 
-
+export const handleCrearPdf = async (id) => { // Insertar aqui id por favor No olvidar que es id de mascota 
     try {
-    const result = await axios.get(`https://mcvapi.azurewebsites.net/carnet/datos-pdf/${id}` ) 
-    const data = result.data
+        const result = await axios.get(`https://mcv-backend-deploy.vercel.app/carnet/datos-pdf/${id}`)
+        const data = result.data
 
-    const ventanaImpresion = window.open('', '_blank');
-    const contenidoImpresion = `
+        const ventanaImpresion = window.open('', '_blank');
+        const contenidoImpresion = `
     <!DOCTYPE html>
     <html lang="es">
     <head>
@@ -116,7 +114,7 @@ export const handleCrearPdf = async  (id) => { // Insertar aqui id por favor No 
                     </tr>
 
                     ${data.map((item, index) =>
-        `   
+            `   
                         <tr key=${index} >
                             <td>${item.nombre_vacuna} </td>
                             <td>${item.laboratorio}</td>
@@ -126,7 +124,7 @@ export const handleCrearPdf = async  (id) => { // Insertar aqui id por favor No 
                         </tr>
                         `
 
-    ).join('')}
+        ).join('')}
     
 
                 </table>
@@ -150,17 +148,22 @@ export const handleCrearPdf = async  (id) => { // Insertar aqui id por favor No 
     </html>
     `;
 
-    ventanaImpresion.document.write(contenidoImpresion);
-    setTimeout(() => {
-        ventanaImpresion.print();
-        ventanaImpresion.close();
-    }, 60)
-        
+        ventanaImpresion.document.write(contenidoImpresion);
+        setTimeout(() => {
+            ventanaImpresion.print();
+            ventanaImpresion.close();
+        }, 60)
+
     } catch (error) {
+        const errorData = error.response.data.message
         console.log(error)
-        
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: `${errorData}`
+        });
+
     }
 
-    
 
 };

@@ -40,7 +40,7 @@ function RegistroComponent({ isOpen, onClose }) {
         setTimeout(() => {
             setMostrarAlerta(true);
         });
-        axios.get('https://mcvapi.azurewebsites.net/registro/documento')
+        axios.get('https://mcv-backend-deploy.vercel.app/registro/documento')
             .then((response) => {
                 setDocumentos(response.data);
             })
@@ -60,7 +60,7 @@ function RegistroComponent({ isOpen, onClose }) {
         e.preventDefault();
 
         try {
-            await axios.post('https://mcvapi.azurewebsites.net/registro/registro_cliente', datosFormulario);
+            await axios.post('https://mcv-backend-deploy.vercel.app/registro/registro_cliente', datosFormulario);
             Swal.fire({
                 text: "Se ha registrado el cliente!",
                 icon: "success"

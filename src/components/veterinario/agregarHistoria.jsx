@@ -1,14 +1,16 @@
-import { Grid, Modal } from '@mui/material'
+import { Alert, Grid, Modal } from '@mui/material'
 import useForm from '../../Hooks/useForm'
 import Input from '../admin/Input'
 import Selects from '../admin/Selects'
 import { useEffect, useState } from 'react'
 import Boton from '../dash/boton'
+import { TextField } from '@mui/material';
 import InputDate from '../dash/inputDate'
 import axios from 'axios';
 import Message from '../dash/succesfulMessage';
 import { getDataById } from '../../utils/getDataById';
 import { useHabilitar } from '../../Hooks/useHabilitar';
+import { dateFormater } from '../../utils/dateFormater';
 import dayjs from 'dayjs'
 
 const registro_historia_clinica_finalizado = [
@@ -74,7 +76,7 @@ export const FormAgregarHistoriaClinica = (props) => {
     useEffect(() => {
         const fectchData = async () => {
             try {
-                const result = await axios.get('https://mcvapi.azurewebsites.net/servicios/VET')
+                const result = await axios.get('https://mcv-backend-deploy.vercel.app/servicios/VET')
                 setServi(result.data)
             } catch (error) {
                 setError(`Error: ${error.response.data.message}`)
@@ -92,7 +94,7 @@ export const FormAgregarHistoriaClinica = (props) => {
         try {
             (values.id_historia_clinica = idHistoria)
             const fechaHoy = dayjs().format('MM-DD-YYYY')
-            let endpoint = 'https://mcvapi.azurewebsites.net/historia_clinica'
+            let endpoint = 'https://mcv-backend-deploy.vercel.app/historia_clinica'
             let httpMethod = 'post'
             let envio = {}
             if (id !== null && id) {

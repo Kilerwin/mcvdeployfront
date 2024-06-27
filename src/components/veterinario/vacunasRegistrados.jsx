@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { VerVacunasMascota } from './verVacunasMascota';
 import { EyeIcon } from "@heroicons/react/24/outline";
 import AlertPrincipal from '../../components/dash/alertPrincipal';
+import Swal from "sweetalert2";
+import Boton from "../../components/dash/boton";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import { DescargaCarnet } from './descargarVacuan';
 
@@ -31,6 +33,44 @@ const columns = [
     { field: 'tamanno_mascota', headerName: 'Tamaño mascota', width: 140 },
 ];
 
+function AlertaDescargar(props) {
+    const { idSeleccionado, tooltip } = props
+    const [desabilitado, setDesabilitado] = useState(idSeleccionado.length === 0)
+
+    useEffect(() => {
+        setDesabilitado(idSeleccionado.length === 0)
+    }, [idSeleccionado, setDesabilitado])
+
+    const handleClick = () => {
+        Swal.fire({
+            title: '¿Deseas descargar el certificado?',
+            showDenyButton: true,
+            confirmButtonText: "Confirmar",
+            denyButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire("Descargando el certificado", "", "success");
+            } else if (result.isDenied) {
+                Swal.fire("No se ha descargado el certificado", "", "error");
+            }
+        });
+    }
+
+    return (
+        <>
+            <Boton
+                bgColor='success'
+                icon={<DocumentArrowDownIcon className='w-6 h-6' />}
+                tooltip={tooltip}
+                onClick={handleClick}
+                desable={desabilitado}
+            />
+        </>
+    )
+}
+
+
+
 export default function AddEmploye() {
     const { selectId, saveSelectId } = useSelectId()
     const [data, setData] = useState([])
@@ -39,7 +79,7 @@ export default function AddEmploye() {
         const fectchData = async () => {
             setError('')
             try {
-                const result = await axios.get('https://mcvapi.azurewebsites.net/carnet/mascotas')
+                const result = await axios.get('https://mcv-backend-deploy.vercel.app/carnet/mascotas')
                 setData(result.data)
             } catch (error) {
                 setData([])
@@ -79,7 +119,7 @@ export default function AddEmploye() {
 
                     descarga={<DescargaCarnet
                         selectId={selectId}
-                        tooltip='Descargar Factura'
+                        tooltip='Descargar Vacunas'
                         bgColor='success'
                         icon={<DocumentArrowDownIcon className='w-6 h-6' />}
                     />}

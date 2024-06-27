@@ -3,7 +3,7 @@ import { Grid, Modal } from '@mui/material'
 import useForm from '../../Hooks/useForm'
 import Input from '../admin/Input'
 import Selects from '../admin/Selects'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import Boton from '../dash/boton'
 import InputDate from '../dash/inputDate'
 import InputTime from '../dash/inputTime';
@@ -51,6 +51,11 @@ export const Maurisio = (props) => {
     const [tipoDocuemento] = useBringDocument()
     const {desabilitado, validarId} = useHabilitar({id})
     const [disableBoton,setDisableBoton] = useState(true)
+    const [blockPastHours,setBlockPastHours] = useState(true)
+
+    useEffect(()=>{
+        dateFormater({time: values.fechaCita, format: 'YYYY-MM-DD'})===(dayjs().format('YYYY-MM-DD')) ? setBlockPastHours(true) : setBlockPastHours(false)
+    },[values.fechaCita])
 
 
     const reinicio = () =>{
@@ -129,7 +134,7 @@ export const Maurisio = (props) => {
         setSuccess('')
         setDisableBoton(true)
         try {
-            let endpoint = 'https://mcvapi.azurewebsites.net/agendar'
+            let endpoint = 'https://mcv-backend-deploy.vercel.app/agendar'
             let httpMethod = 'post'
             let envio = {};
             if (id !== null && id) {
@@ -378,6 +383,7 @@ export const Maurisio = (props) => {
                                 name='fechaCita'
                                 fecha={values.fechaCita}
                                 onChange={handleInputChangeDate}
+                                blockPastDates={true}
                                 disabled={false}
                                 required
                             />
@@ -390,6 +396,7 @@ export const Maurisio = (props) => {
                                 name='horaCita'
                                 hour={values.horaCita}
                                 onChange={handleInputChangeDate}
+                                blockPastHours={blockPastHours}
                                 disabled={false}
                                 required
                             />
@@ -398,7 +405,9 @@ export const Maurisio = (props) => {
                         <Grid item xs={12}>
                             <button
                                 type='submit'
-                                className='w-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
+                                className={`w-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg 
+                                cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem 
+                                shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md ${disableBoton ? 'opacity-50': ''}`}
                                 disabled={disableBoton}
                             >
                                 Registrar

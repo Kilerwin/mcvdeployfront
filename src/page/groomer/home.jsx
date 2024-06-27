@@ -19,7 +19,9 @@ export default function Home() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const { data } = await axios.get('https://mcvapi.azurewebsites.net/inicio-gro');
+                let localstorage = localStorage
+                const id = JSON.parse(localstorage.getItem('user'))
+                const { data } = await axios.get(`https://mcv-backend-deploy.vercel.app/inicio-gro/${id.id_usuario}`);
                 setData(data);
                 setLastUpdateTime(new Date());
             } catch (error) {

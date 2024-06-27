@@ -56,7 +56,7 @@ export default function AgendaVeterinario() {
       try {
         let localstorage = localStorage
         const id = JSON.parse(localstorage.getItem('user'))
-        const {data} = await axios.get(`https://mcvapi.azurewebsites.net/agendar/${dateFormater({time: values.fechaCita, format: 'YYYY-MM-DD'})}/${id.id_usuario}`)
+        const {data} = await axios.get(`https://mcv-backend-deploy.vercel.app/agendar/${dateFormater({time: values.fechaCita, format: 'YYYY-MM-DD'})}/${id.id_usuario}`)
         setRows(data)
       } catch (error) {
         setRows([])

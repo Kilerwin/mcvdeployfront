@@ -5,6 +5,7 @@ import useSelectId from '../../Hooks/useSelectId';
 import Botonera from '../../components/dash/botonera';
 import Swal from "sweetalert2";
 import Stack from '@mui/material/Stack';
+import Boton from "../../components/dash/boton";
 import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import WhatsAppComponent from '../../components/whatsappComponent';
 import axios from 'axios';
@@ -27,7 +28,7 @@ export default function DescargarExamen() {
   useEffect(() => {
     const fetchData1 = async () => {
       try {
-        const response = await axios.get(`https://mcvapi.azurewebsites.net/registro/descarga_examen/${cliente?.id}`);
+        const response = await axios.get(`https://mcv-backend-deploy.vercel.app/registro/descarga_examen/${cliente?.id}`);
         setRows(response.data[0]);
       } catch (error) {
         console.error("Error fetching data:", error);

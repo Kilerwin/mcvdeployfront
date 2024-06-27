@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Stack from '@mui/material/Stack';
 import Sidebar from '../../components/sidebarComponent';
-import Logo from '../../assets/img/gatito.avif';
+import Logo from '../../assets/img/MVC.png';
 import WhatsAppComponent from '../../components/whatsappComponent';
 import axios from 'axios';
 import dayjs from 'dayjs';
@@ -22,7 +22,7 @@ export default function Mascota() {
                 const clientData = JSON.parse(localStorage.getItem('client'));
                 if (clientData) {
                     setCliente(clientData);
-                    const response = await axios.get(`https://mcvapi.azurewebsites.net/info_mascotas/${clientData.id}`);
+                    const response = await axios.get(`https://mcv-backend-deploy.vercel.app/info_mascotas/${clientData.id}`);
                     setMascotas(response.data);
                     if (response.data.length === 0) {
                         Swal.fire({
@@ -69,7 +69,7 @@ export default function Mascota() {
                         <div key={index} className="p-4 max-w-full">
                             <div className="card rounded-lg overflow-hidden shadow-md border border-gray-200">
                                 <div className="w-20 h-20 mx-auto mb-6 flex-shrink-0">
-                                    <img className="w-20 h-20 rounded-full" src={Logo} alt="Mascota" />
+                                    <img className="w-20 h-20 rounded-full" src={mascota.foto_mascota === '' || mascota.foto_mascota === null ? Logo : mascota.foto_mascota} alt="Mascota" />
                                 </div>
                                 <div className="text-center">
                                     <p className="font-bold">{cliente?.primer_nombre_cliente} {cliente?.primer_apellido_cliente}</p>

@@ -45,7 +45,7 @@ export default function Hospitalizaciones () {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get('https://mcvapi.azurewebsites.net/hospitalizaciones');
+        const result = await axios.get('https://mcv-backend-deploy.vercel.app/hospitalizaciones');
         setDataMostrar(result.data)
       } catch (error) {
         setDataMostrar([])

@@ -7,7 +7,7 @@ export const getServisWithSpecialist = async ({specialist}) => {
  }
 
   try{
-    const resultSer = await axios.get(`https://mcvapi.azurewebsites.net/servicios/${SPECIALIST_LIST[specialist]}`)
+    const resultSer = await axios.get(`https://mcv-backend-deploy.vercel.app/servicios/${SPECIALIST_LIST[specialist]}`)
     return resultSer.data
 
   }catch(err){

@@ -1,23 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, } from 'react-router-dom';
 import Logo from "../assets/img/MVC.png";
 import { FormControl } from '@mui/material';
 import axios from 'axios';
 import 'remixicon/fonts/remixicon.css';
-import '../assets/css/login.css';
 import { useNavigate } from 'react-router-dom';
+import '../assets/css/login.css';
 import Swal from 'sweetalert2';
 
 const ValidarPw = () => {
   const [newPw, setNewPw] = useState('');
   const [value, setValue] = useState('');
   const location = useLocation();
+  const [correo_verificacion, setCorreoVerificacion] = useState('');
+  const [originalCorreo, setOriginalCorreo] = useState('');
   const navigate = useNavigate();
-  const correo_verificacion = new URLSearchParams(location.search).get('correo_verificacion');
 
+  useEffect(() => {
+    const correo = new URLSearchParams(location.search).get('correo_verificacion');
+    setCorreoVerificacion(correo);
+    if (!correo) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'El correo de verificación no está presente en la URL',
+      }).then(() => {
+        navigate('/login');
+      });
+    } else {
+      setOriginalCorreo(correo);
+    }
+  }, [location.search, navigate]);
+
+  useEffect(() => {
+    if (originalCorreo && correo_verificacion && correo_verificacion !== originalCorreo) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'El correo de verificación ha sido alterado',
+      }).then(() => {
+        navigate('/login');
+      });
+    }
+  }, [correo_verificacion, originalCorreo, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +60,7 @@ const ValidarPw = () => {
     }
 
     try {
-      const response = await axios.patch(`https://mcvapi.azurewebsites.net/registro/actualizarPassword/${correo_verificacion}`, {
+      const response = await axios.patch(`https://mcv-backend-deploy.vercel.app/registro/actualizarPassword/${correo_verificacion}`, {
         value
       });
       Swal.fire({

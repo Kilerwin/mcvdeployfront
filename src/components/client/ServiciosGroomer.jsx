@@ -4,7 +4,9 @@ import Boton from '../dash/boton';
 import DataTable from '../../components/dash/dataTable';
 import useSelectId from '../../Hooks/useSelectId';
 import Botonera from '../../components/dash/botonera';
+import { DescargarHistoria } from './DescargarHistoria';
 import axios from 'axios';
+import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 import AlertPrincipal from '../../components/dash/alertPrincipal';
 
 const columns = [
@@ -18,7 +20,7 @@ const columns = [
 export default function ServiciosGroomer(props) {
     const { bgColor, icon, tooltip, id, name } = props;
     const [open, setOpen] = useState(false);
-    const { saveSelectId } = useSelectId();
+    const { selectId, saveSelectId } = useSelectId();
     const [data, setData] = useState([]);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState('');
@@ -27,7 +29,7 @@ export default function ServiciosGroomer(props) {
         try {
             setSuccess('');
             setError(null);
-            const result = await axios.get(`https://mcvapi.azurewebsites.net/info_mascotas/serviciosGroo/${id}`);
+            const result = await axios.get(`https://mcv-backend-deploy.vercel.app/info_mascotas/serviciosGroo/${id}`);
             setData(result.data);
         } catch (error) {
             setError(error);

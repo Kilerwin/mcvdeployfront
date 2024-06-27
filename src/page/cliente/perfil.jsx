@@ -22,12 +22,12 @@ dayjs.extend(isBetween);
 
 function Perfil() {
   // Estados
-  const [mostrarAlerta, setMostrarAlerta] = useState(true);
+  const [mostrarAlerta] = useState(true);
   const [error, setError] = useState('');
   const [usuario] = useState(JSON.parse(localStorage.getItem('user')));
   const [cliente, setCliente] = useState(null);
   const [documentos, setDocumentos] = useState([]);
-  const [contraseña, setContraseña] = useState('');
+  const [contraseña, setContraseña] = useState({contraseña:''});
   const [datosFormulario, setDatosFormulario] = useState({
     primer_nombre_cliente: '',
     segundo_nombre_cliente: '',
@@ -49,7 +49,7 @@ function Perfil() {
 
   const cargarDatos = async () => {
     try {
-      const response = await axios.get('https://mcvapi.azurewebsites.net/registro/documento');
+      const response = await axios.get('https://mcv-backend-deploy.vercel.app/registro/documento');
       setDocumentos(response.data);
 
       const clientDataFromLocalStorage = localStorage.getItem('client');
@@ -62,6 +62,39 @@ function Perfil() {
       console.log('error al obtener los datos:', error);
     }
   };
+
+  const validarCampos = () => {
+    const {
+      primer_nombre_cliente,
+      primer_apellido_cliente,
+      id_tipo_documento,
+      numero_documento_cliente,
+      lugar_expedicion_documento,
+      direccion_cliente,
+      telefono_cliente,
+    } = datosFormulario;
+
+    if (
+      primer_nombre_cliente === '' ||
+      primer_apellido_cliente === '' ||
+      id_tipo_documento === '' ||
+      numero_documento_cliente === '' ||
+      lugar_expedicion_documento === '' ||
+      direccion_cliente === '' ||
+      telefono_cliente === ''
+    ) {
+      setError('Todos los campos son requeridos.');
+      return false;
+    }
+
+    if (numero_documento_cliente.length !== 10 || isNaN(numero_documento_cliente)) {
+      setError('El número de documento colombiano debe tener exactamente 10 dígitos numéricos.');
+      return false;
+    }
+
+    return true;
+  };
+
   const manejarCambio = (campo, valor) => {
     setDatosFormulario((datosAnteriores) => ({
       ...datosAnteriores,
@@ -72,6 +105,7 @@ function Perfil() {
       [campo]: valor,
     }));
   };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setContraseña(prevState => ({
@@ -83,11 +117,16 @@ function Perfil() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!validarCampos()) {
+      return;
+    }
+
     try {
       if (cliente) {
-        await axios.put(`https://mcvapi.azurewebsites.net/registro/actualizar_cliente/${cliente.id_cliente}`, {
+        console.log(contraseña)
+        await axios.put(`https://mcv-backend-deploy.vercel.app/registro/actualizar_cliente/${cliente.id_cliente}`, {
           correo_usuario: usuario.correo_usuario,
-          contraseña: contraseña,
+          password: contraseña.contraseña,
           ...datosActualizados
         });
         Swal.fire({
@@ -97,13 +136,13 @@ function Perfil() {
         });
         setCliente({ ...cliente, ...datosFormulario });
       } else {
-        const response = await axios.post('https://mcvapi.azurewebsites.net/registro/registro_cliente', datosFormulario);
+        const response = await axios.post('https://mcv-backend-deploy.vercel.app/registro/registro_cliente', datosFormulario);
         Swal.fire({
           title: "¡Buen trabajo!",
           text: "Se ha registrado como cliente.",
           icon: "success"
         });
-        const nuevoCliente = response.data; // Obtener el cliente creado del response
+        const nuevoCliente = response.data;
         setCliente(nuevoCliente);
       }
     } catch (error) {
@@ -268,7 +307,7 @@ function Perfil() {
                   onChange={handleChange}
                   type="password"
                   variant="outlined"
-                  sx={{ flex: '1 1 30%', minWidth: '450px' }}
+                  sx={{ flex: '1 1 30%', minWidth: '450px', display: cliente ? 'inline-block' : 'none' }}
                 />
               </Box>
             </Box>
@@ -277,6 +316,7 @@ function Perfil() {
               <button
                 type="submit"
                 className="w-48 inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md"
+                style={{ display: cliente ? 'none' : 'inline-block' }}
               >
                 Registrar
               </button>

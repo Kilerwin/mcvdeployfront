@@ -4,6 +4,7 @@ import Input from '../admin/Input'
 import Selects from '../admin/Selects'
 import { useState } from 'react'
 import Boton from '../dash/boton'
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import InputDate from '../dash/inputDate'
 import dayjs from 'dayjs'
 import axios from 'axios';
@@ -105,7 +106,7 @@ export const FromAgregarDesparacitacion = (props) => {
         setSuccess('');
         setDisableBoton(true)
         try {
-            let endpoint = 'https://mcvapi.azurewebsites.net/desparasitacion';
+            let endpoint = 'https://mcv-backend-deploy.vercel.app/desparasitacion';
             let httpMethod = 'post';
             let envio = {};
             if (id !== null && id) {

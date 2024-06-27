@@ -66,7 +66,7 @@ export const FormAgregar = (props) => {
     setError('')
     setSuccess('')
     try {
-        let endpoint = 'https://mcvapi.azurewebsites.net/admin'
+        let endpoint = 'https://mcv-backend-deploy.vercel.app/admin'
         let httpMethod = 'post'
         let envio = {};
         if (id !== null && id) {
@@ -173,7 +173,7 @@ export const FormAgregar = (props) => {
                   required
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            {!validarId && <Grid item xs={12} sm={6}>
               <Input
                 id='passwordUsuario'
                 fullWidth
@@ -185,7 +185,7 @@ export const FormAgregar = (props) => {
                 required
                 disabled={validarId ? true : false}
               />
-            </Grid>
+            </Grid>}
             <Grid item xs={12} sm={6}>
               <Input
                 id='correoUsuario'

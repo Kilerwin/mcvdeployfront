@@ -30,7 +30,7 @@ export default function AlertaEliminar(props) {
     
     if (result.isConfirmed) {
       try {
-        const response = await axios.patch(`https://mcvapi.azurewebsites.net/${endPoint}/${idSeleccionado}`);
+        const response = await axios.patch(`https://mcv-backend-deploy.vercel.app/${endPoint}/${idSeleccionado}`);
         actualizar(!dato);
         console.log(dato)
         Swal.fire(response.data.message, '', 'success');

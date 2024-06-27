@@ -40,11 +40,10 @@ export const VerVacunasMascota = (props) => {
   const [success, setSuccess] = useState('')
   const [tablavisible, setTablavisible ] = useState('')
   
-
   useEffect(() => {
     const fectchData = async () => {
       try {
-        const result = await axios.get(`https://mcvapi.azurewebsites.net/carnet/ver/${id}`)
+        const result = await axios.get(`https://mcv-backend-deploy.vercel.app/carnet/ver/${id}`)
         setData(result.data)
       } catch (error) {
         setData([])
@@ -54,12 +53,11 @@ export const VerVacunasMascota = (props) => {
     if (id) fectchData()
   }, [actualizar])
 
-
   const handleModal = async () => {
     try {
       setSuccess('')
       setError('')
-      const result = await axios.get(`https://mcvapi.azurewebsites.net/carnet/ver/${id}`)
+      const result = await axios.get(`https://mcv-backend-deploy.vercel.app/carnet/ver/${id}`)
       setData(result.data)
     } catch (error) {
       setData([])
@@ -122,7 +120,9 @@ export const VerVacunasMascota = (props) => {
               endPoint='carnet/delete'
               menssage='Por favor, especifique el motivo por el cual desea desactivar esta vacuna. Tenga en cuenta que este cambio es irreversible.'
               actualizar={setActualizar}
-              dato={actualizar} 
+              dato={actualizar}
+              abrirModal={handleModal}
+              cerrarModal={handleClose}
               />
             }
           />

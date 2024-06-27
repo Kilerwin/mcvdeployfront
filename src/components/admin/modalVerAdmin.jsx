@@ -36,7 +36,7 @@ export default function AlertaVer(props) {
 
   const handleMensajeClick = async () => {
     try {
-      const result = await axios.get(`https://mcvapi.azurewebsites.net/admin/${idSeleccionado}`);
+      const result = await axios.get(`https://mcv-backend-deploy.vercel.app/admin/${idSeleccionado}`);
       if (result.data) {
         setDatosMostrados(result.data);
         setModalIsOpen(true);

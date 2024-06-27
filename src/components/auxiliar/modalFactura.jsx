@@ -36,7 +36,7 @@ export default function ModalFactura(props) {
         try {
             setSuccess('')
             setError('')
-            const result = await axios.get(`https://mcvapi.azurewebsites.net/factura`)
+            const result = await axios.get(`https://mcv-backend-deploy.vercel.app/factura`)
             setData(result.data)
         } catch (error) {
             setData([])
@@ -71,7 +71,7 @@ export default function ModalFactura(props) {
                             idSeleccionado={selectId}
                             tooltip='Desactivar Factura'
                             titulo='¿Desea desactivar la Factura seleccionada?'
-                            endPoint='carnet/delete'
+                            endPoint='factura/delete'
                             menssage='Por favor, especifique el motivo por el cual desea desactivar esta factura. Tenga en cuenta que este cambio es irreversible.'
                             actualizar={setActualizar}
                             dato={actualizar}

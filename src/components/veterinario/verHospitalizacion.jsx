@@ -42,7 +42,7 @@ export const VerInfoHospitalizacion = (props) => {
   
   const handleModal = async () => {
       try {
-        const result = await axios.get(`https://mcvapi.azurewebsites.net/hospitalizaciones/${id}`);
+        const result = await axios.get(`https://mcv-backend-deploy.vercel.app/hospitalizaciones/${id}`);
         setDataMostrar([result.data])
         setOpen(true)
         setTimeout(() => {

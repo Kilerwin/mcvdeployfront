@@ -4,7 +4,7 @@ import Botonera from '../../components/dash/botonera'
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { PencilSquareIcon } from '@heroicons/react/24/outline'
+import { PencilSquareIcon, PlusIcon } from '@heroicons/react/24/outline'
 import AlertPrincipal from '../../components/dash/alertPrincipal';
 import Sidebar from '../../components/sidebarComponent'
 import AlertEliminar from '../../components/dash/alertEliminar'
@@ -33,7 +33,7 @@ export default function GestionMascota() {
         const fectchData = async () => {
             setError('')
             try {
-                const result = await axios.get('https://mcvapi.azurewebsites.net/info_mascotas')
+                const result = await axios.get('https://mcv-backend-deploy.vercel.app/info_mascotas')
                 setData(result.data)
             } catch (error) {
                 setData([])

@@ -6,7 +6,7 @@ export const emptyValidation = ({DocumentType, DocumentNumber}) =>{
 
 export const getPetsWithOwner = async ({DocumentType, DocumentNumber}) => {
   try {
-    const result = await axios.get(`https://mcvapi.azurewebsites.net/mascotas/${DocumentType}/${DocumentNumber}`)
+    const result = await axios.get(`https://mcv-backend-deploy.vercel.app/mascotas/${DocumentType}/${DocumentNumber}`)
     return result.data
   } catch (error) {
     return error

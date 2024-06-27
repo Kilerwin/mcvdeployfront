@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { TextField, Select, MenuItem, FormControl, InputLabel, Stack, IconButton, Tooltip } from '@mui/material';
+import { TextField, Select, MenuItem, FormControl, InputLabel, Typography, Card, CardContent, Stack, IconButton, Tooltip } from '@mui/material';
 import Sidebar from '../../components/sidebarComponent';
 import Swal from 'sweetalert2';
 import SearchIcon from '@mui/icons-material/Search';
 import ModalFactura from '../../components/auxiliar/modalFactura';
+import { Logo } from '../../assets/img/MVC.png'
+import Botonera from '../../components/dash/botonera';
 import { EyeIcon } from "@heroicons/react/24/outline";
 
 const FormAgregarFactura = () => {
@@ -159,7 +161,7 @@ const FormAgregarFactura = () => {
 
 
     useEffect(() => {
-        axios.get('https://mcvapi.azurewebsites.net/factura/servicios')
+        axios.get('https://mcv-backend-deploy.vercel.app/factura/servicios')
             .then((response) => {
                 setServicios(response.data);
             })
@@ -171,7 +173,7 @@ const FormAgregarFactura = () => {
     const handleBuscarCliente = (e) => {
         e.preventDefault();
 
-        axios.get(`https://mcvapi.azurewebsites.net/registro-mascota/get_clientes/${documento}`)
+        axios.get(`https://mcv-backend-deploy.vercel.app/registro-mascota/get_clientes/${documento}`)
             .then((response) => {
                 const clienteData = response.data[0];
                 if (clienteData) {
@@ -236,7 +238,7 @@ const FormAgregarFactura = () => {
             precioFinal: precioFinal
         };
         console.log(dataToSend);
-        axios.post('https://mcvapi.azurewebsites.net/factura/registrar_factura', dataToSend)
+        axios.post('https://mcv-backend-deploy.vercel.app/factura/registrar_factura', dataToSend)
             .then((response) => {
                 console.log('Factura guardada:', response.data);
                 Swal.fire({
@@ -350,15 +352,6 @@ const FormAgregarFactura = () => {
                             <div className="mb-6">
                                 <p><strong>Total:</strong> ${cliente.precioTotal}</p>
                             </div>
-                            <div className="text-center">
-                                <input
-                                    type="submit"
-                                    className="px-6 py-3 bg-gradient-to-tl from-blue-500 to-violet-500 text-white font-bold uppercase rounded-lg cursor-pointer hover:from-blue-600 hover:to-violet-600 active:opacity-75 hover:shadow-md transition duration-300"
-                                    value="Imprimir"
-                                    onClick={handleImprimirFactura}
-                                />
-                            </div>
-
                         </div>
                     </div>
                 </div>

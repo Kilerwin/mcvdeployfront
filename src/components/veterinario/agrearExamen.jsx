@@ -1,4 +1,4 @@
-import { Grid, Modal } from '@mui/material'
+import { Grid, Modal, Tooltip } from '@mui/material'
 import useForm from '../../Hooks/useForm'
 import { useState } from 'react'
 import Boton from '../dash/boton'
@@ -91,6 +91,7 @@ export const AgrearExamen = (props) => {
     setSelectedFile(event.target.files[0]);
   };
   const handleFileChangePdf = (event) => {
+    setSuccess('Archivo cargado correcramente')
     setSelectedPdf(event.target.files[0]);
   };
   const reinicio = () =>{
@@ -100,12 +101,8 @@ export const AgrearExamen = (props) => {
   const handlePdf = async () => {
     try {
       setError('')
-      if(selectedFile){
-        const dataMascota = await axios.get(`https://mcvapi.azurewebsites.net/infoClienteMascota/${values.idMascota}`)
-        handleExamenesPdf(selectedFile, tipo_examen, values,dataMascota.data);
-      }else{
-        setError('Carge una imagen para generar el pdf')
-      }
+        const dataMascota = await axios.get(`https://mcv-backend-deploy.vercel.app/infoClienteMascota/${values.idMascota}`)
+        handleExamenesPdf(tipo_examen, values,dataMascota.data);
   } catch (error) {
       console.error('Error al generar el PDF:', error);
   }
@@ -180,7 +177,7 @@ const handleSubmit = async (event) => {
   setSuccess('')
   setDisableBoton(true)
   try {
-      let endpoint = 'https://mcvapi.azurewebsites.net/examenesVeterinario/'
+      let endpoint = 'https://mcv-backend-deploy.vercel.app/examenesVeterinario'
       let httpMethod = 'post'
       let envio = {};
       if (id !== null && id) {
@@ -189,9 +186,9 @@ const handleSubmit = async (event) => {
             resultado_examen: resultadoExamen,
             registro_completo_examen: registroCompletoExamen} = values;
             const formData = new FormData();
-            formData.append('pdf', selectedPdf);
+            formData.append('archivo', selectedPdf);
         
-            const link = await axios.post('https://mcvapi.azurewebsites.net/files/examenes', formData, {
+            const link = await axios.post('https://mcv-backend-deploy.vercel.app/files/examenes', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -220,10 +217,27 @@ const handleSubmit = async (event) => {
           return
         }
       } else {
-          const { idMascota, idTipoExamen } = values
+        if(selectedFile){
+          const dataFile = new FormData();
+          dataFile.append('archivo', selectedFile);
+      
+          const linkImagen = await axios.post('https://mcv-backend-deploy.vercel.app/files/examenes', dataFile, {
+              headers: {
+                  'Content-Type': 'multipart/form-data'
+              }
+          })
+          const { idMascota, idTipoExamen, lote, fechaVencimiento } = values
           envio = {
             idMascota,
-            idTipoExamen
+            idTipoExamen,
+            lote,
+            fechaVencimiento: dayjs(fechaVencimiento).format('YYYY-MM-DD'),
+            linkImagen: linkImagen.data.link
+        }
+        }else {
+          setError('No ha cargado ninguna imagen')
+          setDisableBoton(false)
+          return
         }
       }
       const response = await axios[httpMethod](endpoint, envio)
@@ -351,8 +365,6 @@ const handleSubmit = async (event) => {
                 />
               )}
             </Grid>
-            
-            {validarId && (
               <>
               <Grid item xs={12} sm={6}>
                 <Input
@@ -362,6 +374,7 @@ const handleSubmit = async (event) => {
                   value={values.lote}
                   onChange={handleInputChange}
                   required
+                  disabled={validarId ? true : false}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -373,10 +386,10 @@ const handleSubmit = async (event) => {
                     fecha={values.fechaVencimiento}
                     onChange={handleInputChangeDate}
                     required
+                    disabled={validarId ? true : false}
                 />
               </Grid>
               </>
-            )}
             {tipo_examen === 'Test VIF-VILEF' && (
               <>
                 <Grid item xs={12} sm={6}>
@@ -421,6 +434,21 @@ const handleSubmit = async (event) => {
                 </Grid>
               </>
             )}
+            {!validarId &&
+              <Grid item xs={12} sm={12}>
+                <Button
+                  component="label"
+                  role={undefined}
+                  color={selectedFile ? 'success' :  'secondary'}
+                  variant="contained"
+                  tabIndex={-1}
+                  startIcon={<CloudUploadIcon />}
+                  className='w-full'
+                >
+                  Subir imagen resultado
+                  <VisuallyHiddenInput type="file" onChange={handleFileChange}/>
+                </Button>
+              </Grid>}
             {tipo_examen === 'Test CDV' && (
               <>
                 <Grid item xs={12} sm={12}>
@@ -439,27 +467,15 @@ const handleSubmit = async (event) => {
             )}
             {validarId && (
               <>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <Input
                   id='resultado_examen'
-                  label='resultado Examen'
+                  label='Resultado Examen'
                   name='resultado_examen'
                   value={values.resultado_examen}
                   onChange={handleInputChange}
                   required
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-              <Button
-                component="label"
-                role={undefined}
-                variant="contained"
-                tabIndex={-1}
-                startIcon={<CloudUploadIcon />}
-              >
-                Subir imagen resultado
-                <VisuallyHiddenInput type="file" onChange={handleFileChange}/>
-              </Button>
               </Grid>
                 <Grid item xs={12} sm={6}>
                   <Selects
@@ -489,28 +505,32 @@ const handleSubmit = async (event) => {
             )}
             {validarId && (
               <>
-              <Grid item xs={12} sm={4}>
-              <input type="button" className='w-full mr-3 inline-block px-6 py-3 font-bold text-center bg-gradient-to-tl from-blue-700 to-cyan-500 uppercase align-middle transition-all rounded-lg cursor-pointer leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md text-white' value="Generar Examen" disabled={disableBoton} onClick={handlePdf}/>
-              </Grid>
-              <Grid item xs={12} sm={2}>
-              <Button
-                component="label"
-                className='w-full h-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
-                role={undefined}
-                variant="contained"
-                tabIndex={-1}
-                startIcon={<CloudUploadIcon />}
-              ><VisuallyHiddenInput type="file" onChange={handleFileChangePdf}/></Button>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <button
-                  type='submit'
-                  className='w-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
-                  disabled={disableBoton}
-                >
-                  Registrar
-                </button>
-              </Grid>
+                <Grid item xs={12} sm={3}>
+                  <input type="button" className='w-full mr-3 inline-block px-6 py-3 font-bold text-center bg-gradient-to-tl from-blue-700 to-cyan-500 uppercase align-middle transition-all rounded-lg cursor-pointer leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md text-white' value="Generar" disabled={disableBoton} onClick={handlePdf}/>
+                </Grid>
+                <Grid item xs={12} sm={3}>
+                  <Tooltip title="Cargar examen">
+                    <Button
+                      component="label"
+                      className='w-full h-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
+                      role={undefined}
+                      variant="contained"
+                      tabIndex={-1}
+                      startIcon={<CloudUploadIcon />}
+                    >
+                      <VisuallyHiddenInput type="file" onChange={handleFileChangePdf}/>Cargar
+                    </Button>
+                  </Tooltip>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <button
+                    type='submit'
+                    className='w-full inline-block px-6 py-3 font-bold text-center text-white uppercase align-middle transition-all rounded-lg cursor-pointer bg-gradient-to-tl from-blue-500 to-violet-500 leading-normal text-xs ease-in tracking-tight-rem shadow-xs bg-150 bg-x-25 hover:-translate-y-px active:opacity-85 hover:shadow-md'
+                    disabled={disableBoton}
+                  >
+                    Registrar
+                  </button>
+                </Grid>
               </>
             )}
             {!validarId && (

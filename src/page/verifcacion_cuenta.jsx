@@ -12,7 +12,7 @@ const VerificarCuenta = () => {
         const codigoVerificacion = urlParams.get('codigo_verificacion');
 
         axios
-            .post('https://mcvapi.azurewebsites.net/registro/verificar_cuenta', { codigo_verificacion: codigoVerificacion })
+            .post('https://mcv-backend-deploy.vercel.app/registro/verificar_cuenta', { codigo_verificacion: codigoVerificacion })
             .then((response) => {
                 console.log(response.data);
                 setVerificationSuccess(true);

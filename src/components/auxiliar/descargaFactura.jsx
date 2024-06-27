@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import Boton from "../dash/boton";
 import axios from 'axios';
 import dayjs from 'dayjs';
+import Logo from '../../assets/img/MVC.png'
 
 
 export function DescargaFactura(props) {
     const { selectId, bgColor, icon, tooltip } = props
     const [desabilitado, setDesabilitado] = useState(selectId === null ? false : true)
-    //const [data, setData] = useState(null)
 
     useEffect(() => {
         if (selectId === null) {
@@ -20,7 +20,6 @@ export function DescargaFactura(props) {
             setDesabilitado(true)
         }
     }, [selectId])
-
 
     const handleImprimirFactura = (data) => {
         const ventanaImpresion = window.open('', '_blank');
@@ -37,7 +36,7 @@ export function DescargaFactura(props) {
                         padding: 0;
                     }
                     .container {
-                        max-width: 300px; /* Ancho máximo de la impresora térmica */
+                        max-width: 300px; 
                         margin: 0 auto;
                         padding: 10px;
                     }
@@ -50,18 +49,24 @@ export function DescargaFactura(props) {
                     }
                     .header, .factura-info, .cliente-info, .observaciones, .servicios, .total {
                         margin-bottom: 10px;
-                        
                     }
-
-                    .factura-info{
+                    .factura-info {
                         text-align: center;
                     }
                     .servicios th, .servicios td {
-                        border: none;
+                        border-bottom: 1px solid #ddd;
                         padding: 3px 0;
                     }
                     .servicios th {
                         font-weight: bold;
+                    }
+                    .servicios td.descripcion {
+                        text-align: left;
+                        padding-right: 10px;
+                    }
+                    .servicios td.valor {
+                        text-align: right;
+                        white-space: nowrap;
                     }
                     .total {
                         text-align: left;
@@ -81,23 +86,26 @@ export function DescargaFactura(props) {
                         margin-top: 10px;
                         font-weight: bold;
                     }
+                    .nombre-veterinaria {
+                        text-align: center;
+                    }
                 </style>
             </head>
             <body>
                 <div class="container">
                     <div class="header">
-                        <img src="../../assets/img/MVC.png" alt="Logo de la Veterinaria">
+                        <img src="${Logo}" alt="Logo de la Veterinaria">
                         <div class="nombre-veterinaria">MCV - Mi Can Veterinaria</div>
                         <div class="direccion-veterinaria">123 Calle Principal, Bogotá, Colombia</div>
                     </div>
                     <div class="factura-info">
-                        <p><strong>Fecha de Emisión:</strong> ${data.fecha_factura}</p>
+                        <p><strong>Fecha de Emisión:</strong> ${dayjs(data.fecha_factura).format('DD-MM-YYYY')}</p>
                         <p><strong>NIT Veterinaria:</strong> 123456789-0</p>
                     </div>
                     <h2>Factura</h2>
                     <div class="cliente-info">
                         <p><strong>Nombre del Cliente:</strong> ${data.nombre_cliente}</p>
-                        <p><strong>Fecha de reimpresion:</strong> ${dayjs().format('DD/MM/YYYY')}</p>
+                        <p><strong>Fecha de reimpresion:</strong> ${dayjs().format('DD-MM-YYYY')}</p>
                     </div>
                     <div class="observaciones">
                         <p><strong>Observaciones:</strong> ${data.descripcion_factura}</p>
@@ -112,8 +120,8 @@ export function DescargaFactura(props) {
                         <tbody>
                             ${data.servicio.map((servicio, index) => `
                                 <tr key=${index}>
-                                    <td>${servicio.descripcion_servicio}</td>
-                                    <td>$${servicio.valor_servicio}</td>
+                                    <td class="descripcion">${servicio.descripcion_servicio}</td>
+                                    <td class="valor">$${servicio.valor_servicio}</td>
                                 </tr>
                             `).join('')}
                         </tbody>
@@ -132,9 +140,11 @@ export function DescargaFactura(props) {
         ventanaImpresion.close();
     };
 
+
     const handleModal = async () => {
+        console.log(selectId)
         try {
-            const result = await axios.get(`https://mcvapi.azurewebsites.net/factura/${selectId}`)
+            const result = await axios.get(`https://mcv-backend-deploy.vercel.app/factura/${selectId}`)
             const data = result.data
             handleImprimirFactura(data)
         } catch (error) {

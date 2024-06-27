@@ -56,7 +56,7 @@ export const Maurisio = (props) => {
         setError('')
         successMessage('')
         try {
-            let endpoint = 'https://mcvapi.azurewebsites.net/carnet'
+            let endpoint = 'https://mcv-backend-deploy.vercel.app/carnet'
             let httpMethod = 'post'
             let envio = {};
             if (id !== null && id) {

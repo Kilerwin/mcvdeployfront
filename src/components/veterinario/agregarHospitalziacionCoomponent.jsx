@@ -122,10 +122,10 @@ const handleSubmit = async (event) => {
   setSuccess('')
   setDisableBoton(true)
   try {
-      let endpoint = 'https://mcvapi.azurewebsites.net/hospitalizaciones'
+      let endpoint = 'https://mcv-backend-deploy.vercel.app/hospitalizaciones'
       let httpMethod = 'post'
       let envio = {}
-      const fechaHoy = `${dayjs().format('MM-DD-YYYY')} ${dayjs().format('HH:MM')}`
+      const fechaHoy = `${dayjs().format('MM-DD-YYYY LT')}`
       if (id !== null && id) {
           const { fecha_salida_hospitalizacion:fechaSalida,contenido_hospitalizacion, observaciones, servicio_finalizado_hospitalizacion:servicioFinializadoHospitalizacion } = values;
           if(servicioFinializadoHospitalizacion === 0){

@@ -107,12 +107,12 @@ const handleSubmit = async (event) => {
   try {
       let respuesta
       if(id !== null && id){
-        respuesta = await axios.get(`https://mcvapi.azurewebsites.net/certificados/oneById/${id}`)
+        respuesta = await axios.get(`https://mcv-backend-deploy.vercel.app/certificados/oneById/${id}`)
       }else {
-        respuesta = await axios.get(`https://mcvapi.azurewebsites.net/certificados/infoForCertificate/${values.idMascota}`)
+        respuesta = await axios.get(`https://mcv-backend-deploy.vercel.app/certificados/infoForCertificate/${values.idMascota}`)
       }
       handleCertificadoPdf({...respuesta.data,informacionAdicional:values.informacionAdicional,informacionSanitaria:values.informacionSanitaria})
-      let endpoint = 'https://mcvapi.azurewebsites.net/certificados'
+      let endpoint = 'https://mcv-backend-deploy.vercel.app/certificados'
       let httpMethod = 'post'
       let envio = {}
       if (id !== null && id) {
